@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do Liste</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>To Do List</h1>
+<input type="text" id="nyToDo" placeholder="Legg til ny task">
+<button onclick="addToDo()">Add</button>
+<ul id="toDoListe"></ul>
+
+<script>
+    let toDos = [];
+
+    function addToDo() {
+        const toDoText = document.getElementById('nyToDo').value;
+        if (toDoText === '') return; //retunerer om toDoText er tom.
+        toDos.push({ text: toDoText, completed: false }); //legger til ny oppgave i array med completed satt til false
+        document.getElementById('nyToDo').value = ''; //tømmer input felt
+        renderToDos();
+    }
+
+    function deleteToDo(index) { //sletter oppgave fra to do array basert på index
+        toDos.splice(index, 1); //fjerner 1 oppg fra toDos array ved gitt index
+        renderToDos();
+    }
+
+    function toggleComplete(index) { //toggler fullføring til oppgave
+        toDos[index].completed = !toDos[index].completed; //bytter complete verdi for oppgave
+        renderToDos();
+    }
+
+    function renderToDos() {
+        const toDoListe = document.getElementById('toDoListe')
+        toDoListe.innerHTML = '';
+        toDos.forEach((toDo, index) => { //går mellom hver oppgave i array og lager listeelement
+            const li = document.createElement('li'); //lager nytt listeelement
+            li.ClassName = toDo.completed ? 'completed' : ''; //setter oppgave til fullført om den er fullført
+            li.innerHTML = `
+            <span onclick="toggleComplete(${index})">${toDo.text}</span>
+            <button onclick="deleteToDo(${index})">Delete</button>
+            `; //fyller liste med oppgavetekst og legger til fjerneknapp
+            toDoListe.appendChild(li); //legger til element i toDoliste.
+        });
+    }
+</script>
+
+</body>
+</html>
