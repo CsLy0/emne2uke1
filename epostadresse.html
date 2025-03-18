@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gjenkjenn epost</title>
+</head>
+<body>
+    <h1>Epost Gjenkjenner</h1>
+    <input type="text" id="inputEmail" placeholder="enter email adress">
+    <button onclick="validateEmail()">Validate</button>
+    <p id="result"></p>
+
+    <script>
+        function isEmailValid(text) {
+            if (text.includes("@") && !text.includes(" ") && text.indexOf('.') > text.indexOf('@')) {
+                return true;
+            }
+            return false;
+        }
+
+        function validateEmail() {
+            const inputEmail = document.getElementById("inputEmail").value;
+            const result = isEmailValid(inputEmail);
+            document.getElementById("result").textContent  = result ? "Valid Email Adress" : "Invalid Email Adress";
+        }
+    </script>
+    
+</body>
+</html>
